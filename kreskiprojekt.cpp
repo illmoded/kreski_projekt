@@ -208,18 +208,17 @@ int main(int argc, char const *argv[])
                         a=losowa_ab(-aaa,aaa);
                         b=losowa_ab(-aaa,aaa);
                         
-                        aaa*=0.9;
+                        // aaa*=1.;
                         wxN[i].koniec.x=(wxN[ii].poczatek.x)+a;
                         wxN[i].koniec.y=(wxN[ii].poczatek.y)+b;    
                         i--;
                     }
-                }
-    			
+                }   			
     		}
 
     		for (int i = 0; i < N; i++)
     		{
-				  al_draw_line(wxN[i].poczatek.x,wxN[i].poczatek.y,wxN[i].koniec.x,wxN[i].koniec.y,al_map_rgb(0,255,0),2);  			
+				al_draw_line(wxN[i].poczatek.x,wxN[i].poczatek.y,wxN[i].koniec.x,wxN[i].koniec.y,al_map_rgb(0,255,0),2);  			
     		}
 
     		al_flip_display();
