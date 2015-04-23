@@ -1,1 +1,0 @@
-# kreski_projekt
