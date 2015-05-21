@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <fstream>
-#include <iostream>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
@@ -64,7 +62,7 @@ double iloczynskalarny(wektor w1, wektor w2)
 
 bool wejtoryxx(wektor w1, wektor w2) 
 {
-	wektor ilw1,ilw2,wpom1,wpom2;
+	wektor ilw1,ilw2, wpom1 = wektor(), wpom2 = wektor();
 	double ils;
 
     w1.oblicz_xyz_z_puktow(w1.poczatek,w1.koniec);
@@ -77,11 +75,7 @@ bool wejtoryxx(wektor w1, wektor w2)
 	ilw2 = iloczynwektorowy(w1,wpom2);
 	ils = iloczynskalarny(ilw1,ilw2);
 
-	if (ils>=0)
-	{
-		return false;
-	}else
-		return true;
+    return ils < 0;
 }
 
 double losowa_ab(double a, double b)
@@ -152,8 +146,8 @@ int main(int argc, char const *argv[])
 
     double a,b;
 
-    int aa;
-    int bb;
+//    int aa;
+//    int bb;
     double aaa;
     
     while(1)
@@ -218,7 +212,8 @@ int main(int argc, char const *argv[])
 
     		for (int i = 0; i < N; i++)
     		{
-				al_draw_line(wxN[i].poczatek.x,wxN[i].poczatek.y,wxN[i].koniec.x,wxN[i].koniec.y,al_map_rgb(0,255,0),2);  			
+				al_draw_line((float) wxN[i].poczatek.x, (float) wxN[i].poczatek.y, (float) wxN[i].koniec.x,
+                             (float) wxN[i].koniec.y,al_map_rgb(0,255,0),2);
     		}
 
     		al_flip_display();
