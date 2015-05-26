@@ -1,3 +1,3 @@
 # kreski_projekt
 
-asdasdasd asdsada
+Self-avoiding Random Walk (without grid)
