@@ -1,5 +1,6 @@
 #include "fun.h"
 
+
 void wektor::oblicz_xyz_z_puktow(punkt p1, punkt p2)
 {
 	poczatek.x=p1.x;
