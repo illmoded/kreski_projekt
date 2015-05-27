@@ -41,28 +41,85 @@ int main(int argc, char const *argv[])
 
 	ALLEGRO_COLOR red=al_map_rgb(255,0,0);	
 	ALLEGRO_COLOR blue=al_map_rgb(0,0,255);	
+	ALLEGRO_COLOR kolor;
 //----------------------------------------------------------------
 
+
+	wektor wxN[2];
+
+	wxN[0].poczatek.x=300;
+    wxN[0].poczatek.y=300;
+    wxN[0].koniec.x=350;
+    wxN[0].koniec.y=350;
+
+    wxN[1].poczatek.x=300;
+    wxN[1].poczatek.y=300;
+    wxN[1].koniec.x=350;
+    wxN[1].koniec.y=350;
 
 	while(!al_key_down( &klawiatura, ALLEGRO_KEY_ESCAPE))
 	    {
 	        al_get_keyboard_state(&klawiatura);
 	        al_clear_to_color(al_map_rgb(0,0,0));
 
-	        if (al_key_down(&klawiatura, ALLEGRO_KEY_F1))
+	        if (wejtoryxx(wxN[0],wxN[1])
 	        {
-		       
-						
-					
-					al_flip_display();
-
+	        	kolor=red;
+	        }
+	        else
+	        {
+	        	kolor=blue;
 	        }
 
-	       	if (al_key_down(&klawiatura, ALLEGRO_KEY_F2))
-       		{
-		        
-					al_flip_display();
+	        al_draw_line((float) wxN[0].poczatek.x, (float) wxN[0].poczatek.y, (float) wxN[0].koniec.x,(float) wxN[0].koniec.y,blue,2);
+	        al_draw_line((float) wxN[1].poczatek.x, (float) wxN[1].poczatek.y, (float) wxN[1].koniec.x,(float) wxN[1].koniec.y,kolor,2);
 
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_W))
+	        {
+	        		wxN[1].poczatek.y+=10;
+					al_flip_display();
+	        }
+
+	       	if (al_key_down(&klawiatura, ALLEGRO_KEY_S))
+       		{		
+       				wxN[1].poczatek.y-=10;
+					al_flip_display();
+	        }
+
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_A))
+	        {
+	        		wxN[1].poczatek.x+=10;
+					al_flip_display();
+	        }
+
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_D))
+	        {
+	        		wxN[1].poczatek.x-=10;
+					al_flip_display();
+	        }
+
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_UP))
+	        {
+	        		wxN[1].koniec.y+=10;
+					al_flip_display();
+	        }
+
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_DOWN))
+	        {
+	        		wxN[1].koniec.y-=10;
+					al_flip_display();
+	        }
+
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_LEFT))
+	        {
+	        		wxN[1].koniec.x+=10;
+					al_flip_display();
+	        }
+
+	        if (al_key_down(&klawiatura, ALLEGRO_KEY_RIGHT))
+	        {
+	        		wxN[1].koniec.y-=10;
+					al_flip_display();
 	        }
 	}
 
