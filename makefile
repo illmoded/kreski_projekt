@@ -23,6 +23,7 @@ all: $(TARGET)
 
 clean:
 	-rm -rf $(BUILDDIR)
+	-rm $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)

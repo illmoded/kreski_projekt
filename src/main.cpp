@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
     }
 
     bool redraw=true;
-    const float FPS=1;
+    const float FPS=0.3;
     ALLEGRO_TIMER *timer=al_create_timer(1./FPS);
     al_start_timer(timer);
 
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[])
     fstream plik("kreski",fstream::out);
     srand((unsigned)time(NULL));
 
-    int N = 25;
+    int N = 30;
     wektor wxN[N];
 
     // for (int i = 0; i < N; i++)
@@ -114,7 +114,7 @@ int main(int argc, char const *argv[])
 
                 for (int j = 0; j < i; j++)
                 {
-                    if (wektoryxx(wxN[i],wxN[j])||
+                    if ((wektoryxx(wxN[i],wxN[j])&&wektoryxx(wxN[j],wxN[i]))||
                         wxN[i].poczatek.x<0 || wxN[i].poczatek.x>600 ||
                         wxN[i].koniec.x<0 || wxN[i].koniec.x>600 ||
                         wxN[i].poczatek.y<0 || wxN[i].poczatek.y>600 ||
@@ -128,7 +128,7 @@ int main(int argc, char const *argv[])
             // plik << wxN[0].poczatek.x << "\t" << wxN[0].poczatek.y << endl;
             for (int i = 0; i < N; i++)
             {
-                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(0,255,0), 2);
+                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(0,255,0), 1);
                 // plik << wxN[i].koniec.x << "\t" << wxN[i].koniec.y << endl;
             }
 
