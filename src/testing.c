@@ -79,9 +79,14 @@ bool wektoryxx(wektor w1, wektor w2)
     return ils < 0;
 }
 
-double losowa_ab(double a, double b)
+bool wektoryxxxx(wektor w1, wektor w2)
 {
-	return a+(b-a)*(double)rand()/RAND_MAX;
+	return (wektoryxx(w1, w2) && wektoryxx(w2, w1));
+}
+
+int losowa_ab(int a, int b)
+{
+	return a+rand()%(int)(b-a+1);
 }
 
 int main(int argc, char const *argv[])
@@ -125,34 +130,31 @@ int main(int argc, char const *argv[])
 
 	wektor wxN[2];
 
-	wxN[0].poczatek.x=300;
-    wxN[0].poczatek.y=300;
-    wxN[0].koniec.x=350;
-    wxN[0].koniec.y=350;
+	// 283.932	306.921
+	// 276.542	269.284
 
-    wxN[1].poczatek.x=350;
-    wxN[1].poczatek.y=350;
-    wxN[1].koniec.x=300;
-    wxN[1].koniec.y=300;
+// 	275.897	275.554
+// 	313.473	313.424
+
+	wxN[0].poczatek.x=283.932;
+    wxN[0].poczatek.y=306.921;
+    wxN[0].koniec.x=276.542;
+    wxN[0].koniec.y=269.284;
+
+    wxN[1].poczatek.x=275.897;
+    wxN[1].poczatek.y=275.554;
+    wxN[1].koniec.x=313.473;
+    wxN[1].koniec.y=313.424;
 
 	while(!al_key_down( &klawiatura, ALLEGRO_KEY_ESCAPE))
 	    {
 	        al_get_keyboard_state(&klawiatura);
 	        al_clear_to_color(al_map_rgb(0,0,0));
 
-	        // if(wektoryxx(wxN[0],wxN[1]))
-	        // {
-	        // 	kolor=red;
-	        // }
-	        // else
-	        // {
-	        // 	kolor=blue;
-	        // }
-
 	        int i=0;
 	        int j=1;
 
-	        if (wektoryxx(wxN[i],wxN[j])&&wektoryxx(wxN[j],wxN[i]))
+	        if (wektoryxxxx(wxN[i],wxN[j]))
 	        {
 	        	kolor=red;
 	        }
@@ -160,6 +162,8 @@ int main(int argc, char const *argv[])
 
 	        al_draw_line((float) wxN[0].poczatek.x, (float) wxN[0].poczatek.y, (float) wxN[0].koniec.x,(float) wxN[0].koniec.y,blue,2);
 	        al_draw_line((float) wxN[1].poczatek.x, (float) wxN[1].poczatek.y, (float) wxN[1].koniec.x,(float) wxN[1].koniec.y,kolor,2);
+
+	        al_flip_display();
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_W))
 	        {

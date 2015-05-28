@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
     }
 
     bool redraw=true;
-    const float FPS=0.3;
+    const float FPS=1;
     ALLEGRO_TIMER *timer=al_create_timer(1./FPS);
     al_start_timer(timer);
 
@@ -53,9 +53,9 @@ int main(int argc, char const *argv[])
     al_register_event_source(event_queue,al_get_timer_event_source(timer));
 
     fstream plik("kreski",fstream::out);
-    srand((unsigned)time(NULL));
+    // srand((unsigned)time(NULL));
 
-    int N = 30;
+    int N = 100;
     wektor wxN[N];
 
     // for (int i = 0; i < N; i++)
@@ -66,8 +66,9 @@ int main(int argc, char const *argv[])
     // 	wxN[i].koniec.y=350;
     // }
 
-    double a,b;
-    double dl=50.;
+    int a,b;
+    int dl=50.;
+    bool czy=false;
     
     while(1)
     {   
@@ -87,16 +88,16 @@ int main(int argc, char const *argv[])
         wxN[i].koniec.x=wxN[i].poczatek.x+losowa_ab(-dl,dl);
         wxN[i].koniec.y=wxN[i].poczatek.y+losowa_ab(-dl,dl);
 
+        i = 1;
+
         al_clear_to_color(al_map_rgb(0,0,0));
 
     	if(redraw && al_is_event_queue_empty(event_queue))
     	{
     		redraw=false;
 
-    		do
+    		while(i<N)
     		{
-                i++;
-
     			wxN[i].poczatek.x=wxN[i-1].koniec.x;
     			wxN[i].poczatek.y=wxN[i-1].koniec.y;
 
@@ -106,31 +107,41 @@ int main(int argc, char const *argv[])
     			wxN[i].koniec.x=wxN[i].poczatek.x+a;
     			wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
-                // for (int k = 0; k < i; k++){
-                //     al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 2);
-                // }
+                for (int k = 0; k < i; k++){
+                    al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
+                }
 
-                // al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 1);
+                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 1);
 
                 for (int j = 0; j < i; j++)
                 {
-                    if ((wektoryxx(wxN[i],wxN[j])&&wektoryxx(wxN[j],wxN[i]))||
+                    if (wektoryxxxx(wxN[i],wxN[j]) ||
                         wxN[i].poczatek.x<0 || wxN[i].poczatek.x>600 ||
                         wxN[i].koniec.x<0 || wxN[i].koniec.x>600 ||
                         wxN[i].poczatek.y<0 || wxN[i].poczatek.y>600 ||
                         wxN[i].koniec.y<0 || wxN[i].koniec.y>600
-                        ) {i--; break;}
+                        ) {czy=true;}
                 }
-                al_clear_to_color(al_map_rgb(0,0,0));
-                cout << i << "\r";
-    		}while(i<N);
+
+            	if(!czy)
+            	{
+            		i++;
+            		czy=false;
+            	}
+            	else czy = false;
+
+                // al_clear_to_color(al_map_rgb(0,0,0));
+                cout << i << " " << "\r";
+                al_flip_display();
+                al_rest(0.4);
+    		}
 
             // plik << wxN[0].poczatek.x << "\t" << wxN[0].poczatek.y << endl;
-            for (int i = 0; i < N; i++)
-            {
-                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(0,255,0), 1);
-                // plik << wxN[i].koniec.x << "\t" << wxN[i].koniec.y << endl;
-            }
+            // for (int i = 0; i < N; i++)
+            // {
+            //     al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(0,255,0), 1);
+            //     plik << wxN[i].koniec.x << "\t" << wxN[i].koniec.y << endl;
+            // }
 
     		al_flip_display();
     	}

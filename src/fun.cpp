@@ -47,7 +47,12 @@ bool wektoryxx(wektor w1, wektor w2)
     return ils < 0;
 }
 
-double losowa_ab(double a, double b)
+bool wektoryxxxx(wektor w1, wektor w2)
 {
-	return a+(b-a)*(double)rand()/RAND_MAX;
+	return (wektoryxx(w1, w2) && wektoryxx(w2, w1));
+}
+
+int losowa_ab(int a, int b)
+{
+	return a+rand()%(int)(b-a+1);
 }
