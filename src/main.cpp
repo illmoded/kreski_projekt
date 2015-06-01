@@ -67,10 +67,10 @@ int main(int argc, char const *argv[])
     // }
 
     int a,b;
-    int dl=50.;
+    int dl=70.;
     bool czy=false;
     
-    while(1)
+    while(1)///tu trzeba będzie dodać jakąś sensowną instrukcję zamknięcia
     {   
         ALLEGRO_EVENT ev;
     	al_wait_for_event(event_queue,&ev);
@@ -101,17 +101,17 @@ int main(int argc, char const *argv[])
     			wxN[i].poczatek.x=wxN[i-1].koniec.x;
     			wxN[i].poczatek.y=wxN[i-1].koniec.y;
 
+    			/// losowanie po kwadracie
     			a=losowa_ab(-dl,dl);
     			b=losowa_ab(-dl,dl);
+    			/// lubi sobie brać maksymalne... to w fun coś jest
+    			/// w/e
 
     			wxN[i].koniec.x=wxN[i].poczatek.x+a;
     			wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
-                for (int k = 0; k < i; k++){
-                    al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
-                }
-
-                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 1);
+                /// czerwone kreski
+                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 1);  
 
                 for (int j = 0; j < i; j++)
                 {
@@ -123,14 +123,17 @@ int main(int argc, char const *argv[])
                         ) {czy=true;}
                 }
 
-            	if(!czy)
+            	if(!czy) /// no kurde
             	{
             		i++;
-            		czy=false;
             	}
-            	else czy = false;
+            	czy = 0;
 
-                // al_clear_to_color(al_map_rgb(0,0,0));
+                for (int k = 0; k < i; k++){///rysuje wszystkie pozostałe, żeby nic nie znikało
+                    al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 3);
+                }
+
+
                 cout << i << " " << "\r";
                 al_flip_display();
                 al_rest(0.4);
