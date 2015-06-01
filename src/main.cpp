@@ -120,23 +120,27 @@ int main(int argc, char const *argv[])
                         wxN[i].koniec.x<0 || wxN[i].koniec.x>600 ||
                         wxN[i].poczatek.y<0 || wxN[i].poczatek.y>600 ||
                         wxN[i].koniec.y<0 || wxN[i].koniec.y>600
-                        ) {czy=true;}
+                        )
+                        {
+                        	czy=true;
+                        	continue;
+                        }
                 }
 
             	if(!czy) /// no kurde
-            	{
+            	{	
             		i++;
             	}
+            	/// reset
             	czy = 0;
 
                 for (int k = 0; k < i; k++){///rysuje wszystkie pozostałe, żeby nic nie znikało
                     al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 3);
                 }
 
-
-                cout << i << " " << "\r";
+                // cout << i << " " << "\r";
                 al_flip_display();
-                al_rest(0.4);
+                al_rest(0.2);
     		}
 
             // plik << wxN[0].poczatek.x << "\t" << wxN[0].poczatek.y << endl;
