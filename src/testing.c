@@ -124,11 +124,12 @@ int main(int argc, char const *argv[])
 
 	ALLEGRO_COLOR red=al_map_rgb(255,0,0);	
 	ALLEGRO_COLOR blue=al_map_rgb(0,0,255);	
-	ALLEGRO_COLOR kolor;
+	// ALLEGRO_COLOR kolor;
+
 //----------------------------------------------------------------
 
-
-	wektor wxN[2];
+	int N=5;
+	wektor wxN[N];
 
 	// 283.932	306.921
 	// 276.542	269.284
@@ -146,76 +147,95 @@ int main(int argc, char const *argv[])
     wxN[1].koniec.x=313.473;
     wxN[1].koniec.y=313.424;
 
+    wxN[2].poczatek.x=400;
+    wxN[2].poczatek.y=400;
+    wxN[2].koniec.x=500;
+    wxN[2].koniec.y=250;
+
+    wxN[3].poczatek.x=555;
+    wxN[3].poczatek.y=111;
+    wxN[3].koniec.x=222;
+    wxN[3].koniec.y=222;
+
+    wxN[4].poczatek.x=115;
+    wxN[4].poczatek.y=75;
+    wxN[4].koniec.x=12;
+    wxN[4].koniec.y=34;
+
 	while(!al_key_down( &klawiatura, ALLEGRO_KEY_ESCAPE))
 	    {
 	        al_get_keyboard_state(&klawiatura);
 	        al_clear_to_color(al_map_rgb(0,0,0));
-
-	        int i=0;
-	        int j=1;
-
-	        if (wektoryxxxx(wxN[i],wxN[j]))
+	        for (int i = 0; i < N; ++i)
 	        {
-	        	kolor=red;
+	        	al_draw_line((float) wxN[i].poczatek.x, (float) wxN[i].poczatek.y, (float) wxN[i].koniec.x,(float) wxN[i].koniec.y,blue,2);
+			}
+	        for (int i = 1; i < N; i++)
+	        {
+	           	if(wektoryxxxx(wxN[0],wxN[i]))
+	        	{
+	        		al_draw_line((float) wxN[0].poczatek.x, (float) wxN[0].poczatek.y, (float) wxN[0].koniec.x,(float) wxN[0].koniec.y,red,5);
+	        	}
+	        	else
+	        	{
+	        		al_draw_line((float) wxN[0].poczatek.x, (float) wxN[0].poczatek.y, (float) wxN[0].koniec.x,(float) wxN[0].koniec.y,blue,2);		
+	        	}
 	        }
-	        else kolor=blue;
-
-	        al_draw_line((float) wxN[0].poczatek.x, (float) wxN[0].poczatek.y, (float) wxN[0].koniec.x,(float) wxN[0].koniec.y,blue,2);
-	        al_draw_line((float) wxN[1].poczatek.x, (float) wxN[1].poczatek.y, (float) wxN[1].koniec.x,(float) wxN[1].koniec.y,kolor,2);
 
 	        al_flip_display();
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_W))
 	        {
-	        		wxN[1].poczatek.y-=2;
+	        		wxN[0].poczatek.y-=2;
 					al_flip_display();
 	        }
 
 	       	if (al_key_down(&klawiatura, ALLEGRO_KEY_S))
        		{		
-       				wxN[1].poczatek.y+=2;
+       				wxN[0].poczatek.y+=2;
 					al_flip_display();
 	        }
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_A))
 	        {
-	        		wxN[1].poczatek.x-=2;
+	        		wxN[0].poczatek.x-=2;
 					al_flip_display();
 	        }
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_D))
 	        {
-	        		wxN[1].poczatek.x+=2;
+	        		wxN[0].poczatek.x+=2;
 					al_flip_display();
 	        }
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_UP))
 	        {
-	        		wxN[1].koniec.y-=2;
+	        		wxN[0].koniec.y-=2;
 					al_flip_display();
 	        }
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_DOWN))
 	        {
-	        		wxN[1].koniec.y+=2;
+	        		wxN[0].koniec.y+=2;
 					al_flip_display();
 	        }
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_LEFT))
 	        {
-	        		wxN[1].koniec.x-=2;
+	        		wxN[0].koniec.x-=2;
 					al_flip_display();
 	        }
 
 	        if (al_key_down(&klawiatura, ALLEGRO_KEY_RIGHT))
 	        {
-	        		wxN[1].koniec.x+=2;
+	        		wxN[0].koniec.x+=2;
 					al_flip_display();
 	        }
-	        if(al_key_down(&klawiatura, ALLEGRO_KEY_SPACE)){
-	        	plik << wxN[0].poczatek.x << "\t" << wxN[0].poczatek.y << "\t" << wxN[1].poczatek.x << "\t" << wxN[1].poczatek.y << endl;
-	        	plik << wxN[0].koniec.x << "\t" << wxN[0].koniec.y << "\t" << wxN[1].koniec.x << "\t" << wxN[1].koniec.y << endl;
-	        }
+
+	        // if(al_key_down(&klawiatura, ALLEGRO_KEY_SPACE)){
+	        // 	plik << wxN[0].poczatek.x << "\t" << wxN[0].poczatek.y << "\t" << wxN[0].poczatek.x << "\t" << wxN[0].poczatek.y << endl;
+	        // 	plik << wxN[0].koniec.x << "\t" << wxN[0].koniec.y << "\t" << wxN[1].koniec.x << "\t" << wxN[1].koniec.y << endl;
+	        // }
 	}
 	plik.close();
 	return 0;
