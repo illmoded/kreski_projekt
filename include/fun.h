@@ -24,6 +24,7 @@ public:
 	punkt poczatek;
 	punkt koniec;
 
+	//jako swobodny
 	double x;
 	double y;
 	double z;

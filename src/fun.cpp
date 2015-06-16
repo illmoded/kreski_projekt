@@ -5,8 +5,11 @@ void wektor::oblicz_xyz_z_puktow(punkt p1, punkt p2)
 {
 	poczatek.x=p1.x;
 	poczatek.y=p1.y;
+	poczatek.z=p1.z;
+
 	koniec.x=p2.x;
 	koniec.y=p2.y;
+	koniec.z=p2.z;
 
 	x=p1.x-p2.x;
 	y=p1.y-p2.y;
@@ -44,7 +47,7 @@ bool wektoryxx(wektor w1, wektor w2)
 	ilw2 = iloczynwektorowy(w1,wpom2);
 	ils = iloczynskalarny(ilw1,ilw2);
 
-    return ils < 0;
+    return ils < 1e-5;
 }
 
 bool wektoryxxxx(wektor w1, wektor w2)

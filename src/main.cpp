@@ -58,14 +58,6 @@ int main(int argc, char const *argv[])
     int N = 100;
     wektor wxN[N];
 
-    // for (int i = 0; i < N; i++)
-    // {
-    // 	wxN[i].poczatek.x=300;
-    // 	wxN[i].poczatek.y=300;
-    // 	wxN[i].koniec.x=350;
-    // 	wxN[i].koniec.y=350;
-    // }
-
     double a,b;
     double dl=70.;
     bool czy=false;
@@ -98,6 +90,7 @@ int main(int argc, char const *argv[])
 
     		while(i<N)
     		{
+                czy=0;
     			wxN[i].poczatek.x=wxN[i-1].koniec.x;
     			wxN[i].poczatek.y=wxN[i-1].koniec.y;
 
@@ -111,7 +104,7 @@ int main(int argc, char const *argv[])
     			wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
                 /// czerwone kreski
-                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 1);  
+                al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
 
                 for (int j = 0; j < i-1; j++)
                 {
@@ -123,7 +116,7 @@ int main(int argc, char const *argv[])
                         )
                         {
                         	czy=true;
-                        	continue;
+                        	break;
                         }
                 }
 
@@ -135,7 +128,7 @@ int main(int argc, char const *argv[])
             	czy = 0;
 
                 for (int k = 0; k < i; k++){///rysuje wszystkie pozostałe, żeby nic nie znikało
-                    al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 3);
+                    al_draw_line(wxN[k].poczatek.x, wxN[k].poczatek.y, wxN[k].koniec.x, wxN[k].koniec.y, al_map_rgb(0,255,0), 2);
                 }
 
                 // cout << i << " " << "\r";
