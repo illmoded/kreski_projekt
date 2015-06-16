@@ -52,7 +52,7 @@ bool wektoryxxxx(wektor w1, wektor w2)
 	return (wektoryxx(w1, w2) && wektoryxx(w2, w1));
 }
 
-int losowa_ab(int a, int b)
+double losowa_ab(double a, double b)
 {
-	return a+rand()%(int)(b-a+1);
+	return a+(b-a)*rand()/RAND_MAX;
 }

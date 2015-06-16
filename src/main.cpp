@@ -66,8 +66,8 @@ int main(int argc, char const *argv[])
     // 	wxN[i].koniec.y=350;
     // }
 
-    int a,b;
-    int dl=70.;
+    double a,b;
+    double dl=70.;
     bool czy=false;
     
     while(1)///tu trzeba będzie dodać jakąś sensowną instrukcję zamknięcia
@@ -113,7 +113,7 @@ int main(int argc, char const *argv[])
                 /// czerwone kreski
                 al_draw_line(wxN[i].poczatek.x, wxN[i].poczatek.y, wxN[i].koniec.x, wxN[i].koniec.y, al_map_rgb(255,0,0), 1);  
 
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j < i-1; j++)
                 {
                     if (wektoryxxxx(wxN[i],wxN[j]) ||
                         wxN[i].poczatek.x<0 || wxN[i].poczatek.x>600 ||
