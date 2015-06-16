@@ -44,7 +44,7 @@ int main(int argc, char const *argv[])
     }
 
     bool redraw=true;
-    const float FPS=1;
+    const float FPS=10;
     ALLEGRO_TIMER *timer=al_create_timer(1./FPS);
     al_start_timer(timer);
 
