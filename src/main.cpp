@@ -62,10 +62,10 @@ int main(int argc, char const *argv[])
     wektor wxN[N];
 
     double a,b;
-    double dl=20.;
+    double dl=50.;
     bool czy=false;
-    double drg2=0, srdrg2;
-    double pol2=0, srpol2;
+    double drg=0, drg2=0, srdrg, srdrg2;
+    double pol=0, pol2=0, srpol, srpol2;
     double Xp, Yp, Xk, Yk;
     int I=0, czas=1000;
     int i=0;
@@ -96,11 +96,11 @@ int main(int argc, char const *argv[])
 
     		while(i<N && I<=czas)
     		{
+                al_clear_to_color(al_map_rgb(0,0,0));
                 czy=0;
     			wxN[i].poczatek.x=wxN[i-1].koniec.x;
     			wxN[i].poczatek.y=wxN[i-1].koniec.y;
 
-    			/// losowanie po kwadracie
     			a=rnd.gauss(0,dl);
     			b=rnd.gauss(0,dl);
 
@@ -132,13 +132,17 @@ int main(int argc, char const *argv[])
                 Xk=wxN[i-1].koniec.x;
                 Yk=wxN[i-1].koniec.y;
 
+                pol+=sqrt(Xk*Xk+Yk*Yk);
+                srpol=pol/i;
                 pol2+=Xk*Xk+Yk*Yk;
                 srpol2=pol2/i;
 
+                drg+=sqrt((Xk-Xp)*(Xk-Xp)+(Yk-Yp)*(Yk-Yp));
+                srdrg=drg/i;
                 drg2+=(Xk-Xp)*(Xk-Xp)+(Yk-Yp)*(Yk-Yp);
                 srdrg2=drg2/i;
 
-                plik << I << "\t" << srpol2 << "\t" << srdrg2 << endl;
+                plik << I << "\t" << srpol << "\t" << srdrg << "\t" << srpol2 << "\t" << srdrg2 << endl;
 
                 for (int k = 0; k < i; k++){///rysuje wszystkie pozostałe, żeby nic nie znikało
                     al_draw_line(300+wxN[k].poczatek.x, 300+wxN[k].poczatek.y, 300+wxN[k].koniec.x, 300+wxN[k].koniec.y, al_map_rgb(0,255,0), 2);
