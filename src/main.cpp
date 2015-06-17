@@ -58,16 +58,16 @@ int main(int argc, char const *argv[])
 
     rnd rnd;
 
-    int N = 100;
+    int N = 200;
     wektor wxN[N];
 
     double a,b;
-    double dl=50.;
+    double dl=1.;
     bool czy=false;
     double drg=0, drg2=0, srdrg, srdrg2;
     double pol=0, pol2=0, srpol, srpol2;
     double Xp, Yp, Xk, Yk;
-    int I=0, czas=1000;
+    int I=0, czas=2000;
     int i=0;
     
     while(i<N && I<=czas)
@@ -108,7 +108,7 @@ int main(int argc, char const *argv[])
     			wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
                 /// czerwone kreski
-                al_draw_line(300+wxN[i].poczatek.x, 300+wxN[i].poczatek.y, 300+wxN[i].koniec.x, 300+wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
+                al_draw_line(300+10*wxN[i].poczatek.x, 300+10*wxN[i].poczatek.y, 300+10*wxN[i].koniec.x, 300+10*wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
 
                 for (int j = 0; j < i-1; j++)
                 {
@@ -145,7 +145,7 @@ int main(int argc, char const *argv[])
                 plik << I << "\t" << srpol << "\t" << srdrg << "\t" << srpol2 << "\t" << srdrg2 << endl;
 
                 for (int k = 0; k < i; k++){///rysuje wszystkie pozostałe, żeby nic nie znikało
-                    al_draw_line(300+wxN[k].poczatek.x, 300+wxN[k].poczatek.y, 300+wxN[k].koniec.x, 300+wxN[k].koniec.y, al_map_rgb(0,255,0), 2);
+                    al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
                 }
 
                 al_flip_display();
