@@ -3,6 +3,8 @@
 #include <allegro5/allegro_image.h>
 #include "fun.h"
 #include "rnd.h"
+// #include "TFile.h"
+// #include "TH1F.h"
 
 using namespace std;
 
@@ -53,7 +55,7 @@ int main(int argc, char const *argv[])
     al_register_event_source(event_queue,al_get_display_event_source(ekran));
     al_register_event_source(event_queue,al_get_timer_event_source(timer));
 
-    fstream plik("kreski",fstream::out);
+    fstream plik("kreski.txt",fstream::out);
     // srand((unsigned)time(NULL));
 
     rnd rnd;
