@@ -3,8 +3,6 @@
 #include <allegro5/allegro_image.h>
 #include "fun.h"
 #include "rnd.h"
-// #include "TFile.h"
-// #include "TH1F.h"
 
 using namespace std;
 
@@ -56,6 +54,7 @@ int main(int argc, char const *argv[])
     al_register_event_source(event_queue,al_get_timer_event_source(timer));
 
     fstream plik("kreski.txt",fstream::out);
+    ofstream hist("hist.txt",ios::app);
     // srand((unsigned)time(NULL));
 
     rnd rnd;
@@ -70,7 +69,7 @@ int main(int argc, char const *argv[])
     double pol=0, pol2=0, srpol, srpol2;
     double Xp, Yp, Xk, Yk;
     int t=0, czas=2000;
-    int i=0;
+    int i=0, tb=0;
     
     while(i<N && t<=czas)
     {   
@@ -117,6 +116,7 @@ int main(int argc, char const *argv[])
                     if (wektoryxxxx(wxN[i],wxN[j]))
                         {
                         	czy=true;
+                            tb++;
                         	break;
                         }
                 }
@@ -138,6 +138,8 @@ int main(int argc, char const *argv[])
                     drg2+=(Xk-Xp)*(Xk-Xp)+(Yk-Yp)*(Yk-Yp);
                     srdrg2=drg2/i;
             		i++;
+                    hist << tb << endl;
+                    tb=0;
             	}
             	/// reset
                 t++;
@@ -155,7 +157,9 @@ int main(int argc, char const *argv[])
     		al_flip_display();
     	}
     }
+    hist << tb << endl;
     plik.close();
+    hist.close();
     al_destroy_display(ekran);
 
 	return 0;

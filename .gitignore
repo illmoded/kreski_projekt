@@ -30,6 +30,7 @@
 *.app
 *.x
 *.txt
+*.root
 
 ### Linux template
 *~
