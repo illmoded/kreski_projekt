@@ -8,7 +8,9 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    if(0)
+    int tryb;
+    tryb = 1;
+    if(tryb)
     {
         if(!al_init())
         {
@@ -166,7 +168,7 @@ int main(int argc, char const *argv[])
         al_destroy_display(ekran);
     }
 
-    if(1)
+    if(!tryb)
     {
     fstream plik("kreski.txt",fstream::out);
     ofstream hist("hist.txt",ios::app);
