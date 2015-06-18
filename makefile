@@ -24,7 +24,6 @@ all: $(TARGET)
 clean:
 	-rm -rf $(BUILDDIR)
 	-rm $(TARGET)
-	-rm *.root
 
 run: $(TARGET)
 	./$(TARGET)

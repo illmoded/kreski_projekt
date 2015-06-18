@@ -54,7 +54,7 @@ int main(int argc, char const *argv[])
     al_register_event_source(event_queue,al_get_timer_event_source(timer));
 
     fstream plik("kreski.txt",fstream::out);
-    ofstream hist("hist.txt",ios::app);
+    fstream hist("hist.txt", fstream::app);
     // srand((unsigned)time(NULL));
 
     rnd rnd;
@@ -117,6 +117,7 @@ int main(int argc, char const *argv[])
                         {
                         	czy=true;
                             tb++;
+                            hist << tb << endl;
                         	break;
                         }
                 }
@@ -138,7 +139,6 @@ int main(int argc, char const *argv[])
                     drg2+=(Xk-Xp)*(Xk-Xp)+(Yk-Yp)*(Yk-Yp);
                     srdrg2=drg2/i;
             		i++;
-                    hist << tb << endl;
                     tb=0;
             	}
             	/// reset
