@@ -28,6 +28,8 @@ public:
 	double x;
 	double y;
 	double z;
+
+	double dlugosc;
 }; 
 
 wektor iloczynwektorowy(wektor w1, wektor w2);

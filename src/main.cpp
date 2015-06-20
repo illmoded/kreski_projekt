@@ -71,7 +71,6 @@ int main(int argc, char const *argv[])
         bool czy=false;
         double drg=0, drg2=0, srdrg, srdrg2;
         double pol=0, pol2=0, srpol, srpol2;
-        double Xp, Yp, Xk, Yk;
         int t=0, czas=2000;
         int i=0, tb=1;
         
@@ -127,19 +126,14 @@ int main(int argc, char const *argv[])
 
                     if(!czy)
                     {   
-                        Xp=wxN[i].poczatek.x;
-                        Yp=wxN[i].poczatek.y;
-                        Xk=wxN[i].koniec.x;
-                        Yk=wxN[i].koniec.y;
-
-                        pol+=sqrt(Xk*Xk+Yk*Yk);
+                        pol+=wxN[i].dlugosc;
                         srpol=pol/i;
-                        pol2+=Xk*Xk+Yk*Yk;
+                        pol2+=wxN[i].dlugosc*wxN[i].dlugosc;
                         srpol2=pol2/i;
 
-                        drg+=sqrt((Xk-Xp)*(Xk-Xp)+(Yk-Yp)*(Yk-Yp));
+                        drg+=sqrt((wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y));
                         srdrg=drg/i;
-                        drg2+=(Xk-Xp)*(Xk-Xp)+(Yk-Yp)*(Yk-Yp);
+                        drg2+=(wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y);
                         srdrg2=drg2/i;
                         
                         hist << tb << endl;
