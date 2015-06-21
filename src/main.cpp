@@ -9,10 +9,6 @@
 
 using namespace std;
 
-ALLEGRO_COLOR red=al_map_rgb(255,0,0);
-ALLEGRO_COLOR green=al_map_rgb(0,255,0);
-ALLEGRO_COLOR blue=al_map_rgb(0,0,255);
-
 void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
 {
     float x1 = w.poczatek.x;
@@ -20,14 +16,8 @@ void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
     float y1 = w.poczatek.y;
     float y2 = w.koniec.y;
 
-    if (skala)
-    {
-        al_draw_line(300+10*x1,300+10*y1,300+10*x2,300+10*y2,kolor,szer);
-    }
-    else
-    {
-        al_draw_line(x1,y1,x2,y2,kolor,szer);
-    }
+    if(skala)   al_draw_line(300+10*x1, 300+10*y1, 300+10*x2, 300+10*y2, kolor, szer);
+    else        al_draw_line(x1,y1,x2,y2,kolor,szer);
 }
 
 int main(int argc, char const *argv[])
@@ -79,6 +69,10 @@ int main(int argc, char const *argv[])
         ALLEGRO_EVENT_QUEUE *event_queue=al_create_event_queue();
         al_register_event_source(event_queue,al_get_display_event_source(ekran));
         al_register_event_source(event_queue,al_get_timer_event_source(timer));
+
+        ALLEGRO_COLOR red=al_map_rgb(255,0,0);
+        ALLEGRO_COLOR green=al_map_rgb(0,255,0);
+        ALLEGRO_COLOR blue=al_map_rgb(0,0,255);
 
         fstream plik("kreski.txt",fstream::out);
         ofstream hist("czas_uw.txt",ios::app);
@@ -136,8 +130,7 @@ int main(int argc, char const *argv[])
                     wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
                     /// czerwone kreski
-                    kreska(wxN[i],red); //ładniej ;p // ALE NIE DZIAŁA!!!11one one one
-                    // al_draw_line(300+10*wxN[i].poczatek.x, 300+10*wxN[i].poczatek.y, 300+10*wxN[i].koniec.x, 300+10*wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
+                    kreska(wxN[i],red);
 
                     for (int j = 0; j < i-1; j++)
                     {
@@ -167,15 +160,15 @@ int main(int argc, char const *argv[])
                         czas_uw=1;
                         i++;
                     }
+
                     /// reset
                     czy = 0;
                     t++;                    
 
                     plik << t << "\t" << srpol << "\t" << srdrg << "\t" << srpol2 << "\t" << srdrg2 << endl;
 
-                    for (int k = 0; k < i; k++){///rysuje wszystkie // chyba nic
-                        kreska(wxN[k],green);
-                        // al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
+                    for (int k = 0; k < i; k++){
+                        kreska(wxN[k], green, 1);
                     }
 
                     al_flip_display();
@@ -204,8 +197,7 @@ int main(int argc, char const *argv[])
         prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
 
         for (int k = 0; k < i; k++){
-            kreska(wxN[k],green);
-            // al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
+            kreska(wxN[k],green,1);
         }
         al_flip_display();
 
@@ -213,7 +205,7 @@ int main(int argc, char const *argv[])
         hist.close();
         prom.close();
         plik.close();
-        sleep(1);
+        al_rest(1);
 
         al_destroy_display(ekran);
     }
