@@ -33,7 +33,7 @@ void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
 int main(int argc, char const *argv[])
 {
     int tryb;
-    tryb = 0;
+    tryb = 1;
     if(tryb)
     {
         if(!al_init())
@@ -81,6 +81,8 @@ int main(int argc, char const *argv[])
         al_register_event_source(event_queue,al_get_timer_event_source(timer));
 
         fstream plik("kreski.txt",fstream::out);
+        ofstream hist("czas_uw.txt",ios::app);
+        ofstream prom("promien.txt",ios::app);
         // srand((unsigned)time(NULL));
 
         rnd rnd;
@@ -94,7 +96,7 @@ int main(int argc, char const *argv[])
         double drg=0, drg2=0, srdrg, srdrg2;
         double pol=0, pol2=0, srpol, srpol2;
         int t=0, stop=100;
-        int i=0;
+        int i=0, czas_uw=1;
         
         while(i<N && t<=stop)
         {   
@@ -134,7 +136,7 @@ int main(int argc, char const *argv[])
                     wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
                     /// czerwone kreski
-                    kreska(wxN[i],red); //ładniej ;p
+                    kreska(wxN[i],red); //ładniej ;p // ALE NIE DZIAŁA!!!11one one one
                     // al_draw_line(300+10*wxN[i].poczatek.x, 300+10*wxN[i].poczatek.y, 300+10*wxN[i].koniec.x, 300+10*wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
 
                     for (int j = 0; j < i-1; j++)
@@ -142,13 +144,14 @@ int main(int argc, char const *argv[])
                         if (wektoryxxxx(wxN[i],wxN[j]))
                             {
                                 czy=true;
+                                czas_uw++;
                                 break;
                             }
                     }
 
                     if(!czy)
                     {   
-                        pol+=wxN[i].dlugosc;
+                        pol+=wxN[i].dlugosc;    // też nie działa...
                         srpol=pol/i;
 
                         pol2+=wxN[i].dlugosc*wxN[i].dlugosc;
@@ -160,6 +163,8 @@ int main(int argc, char const *argv[])
                         drg2+=(wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y);
                         srdrg2=drg2/i;
                         
+                        hist << czas_uw << endl;
+                        czas_uw=1;
                         i++;
                     }
                     /// reset
@@ -168,7 +173,7 @@ int main(int argc, char const *argv[])
 
                     plik << t << "\t" << srpol << "\t" << srdrg << "\t" << srpol2 << "\t" << srdrg2 << endl;
 
-                    for (int k = 0; k < i; k++){///rysuje wszystkie
+                    for (int k = 0; k < i; k++){///rysuje wszystkie // chyba nic
                         kreska(wxN[k],green);
                         // al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
                     }
@@ -196,6 +201,7 @@ int main(int argc, char const *argv[])
 
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, al_map_rgb(255, 255, 0), 1);
+        prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
 
         for (int k = 0; k < i; k++){
             kreska(wxN[k],green);
@@ -203,100 +209,17 @@ int main(int argc, char const *argv[])
         }
         al_flip_display();
 
+        hist << czas_uw << endl;
+        hist.close();
+        prom.close();
         plik.close();
-        sleep(5);
+        sleep(1);
 
         al_destroy_display(ekran);
     }
 
     if(!tryb)
-    {
-        ofstream hist("czas_uw.txt",ios::app);
-        ofstream prom("promien.txt",ios::app);
-        // srand((unsigned)time(NULL));
-
-        rnd rnd;
-
-        int N = 200;
-        wektor wxN[N];
-
-        double a,b;
-        double dl=1.;
-        bool czy=false;
-        int t=0, stop=100;
-        int i=0, czas_uw=1;
-        
-        wxN[i].poczatek.x=0;
-        wxN[i].poczatek.y=0;
-
-        wxN[i].koniec.x=wxN[i].poczatek.x+rnd.gauss(0,dl);
-        wxN[i].koniec.y=wxN[i].poczatek.y+rnd.gauss(0,dl);
-
-        i = 1;
-
-        while(i<N && t<=stop)
-        {
-            czy=0;
-            wxN[i].poczatek.x=wxN[i-1].koniec.x;
-            wxN[i].poczatek.y=wxN[i-1].koniec.y;
-
-            a=rnd.gauss(0,dl);
-            b=rnd.gauss(0,dl);
-
-            wxN[i].koniec.x=wxN[i].poczatek.x+a;
-            wxN[i].koniec.y=wxN[i].poczatek.y+b;
-
-            for (int j = 0; j < i-1; j++)
-            {
-                if (wektoryxxxx(wxN[i],wxN[j]))
-                    {
-                        czy=true;
-                        czas_uw++;
-                        break;
-                    }
-            }
-
-            if(!czy)
-            {                
-                hist << czas_uw << endl;
-                czas_uw=1;
-                i++;
-            }
-            /// reset
-            t++;
-            czy = 0;
-        }
-
-    std::list<std::vector<double> > punkt;
-    std::vector<double> q(2);
-    q[0] = wxN[0].poczatek.x;
-    q[1] = wxN[0].poczatek.y;
-    punkt.push_back(q);
-    for (int n = 0; n < i; n++){
-        std::vector<double> p(2);
-        p[0] = wxN[n].koniec.x;
-        p[1] = wxN[n].koniec.y;
-        punkt.push_back(p);
-    }
-
-    // szukanie najmniejszego okręgu
-    typedef std::list<std::vector<double> >::const_iterator PointIterator; 
-    typedef std::vector<double>::const_iterator CoordIterator;
-    typedef Miniball::Miniball <Miniball::CoordAccessor<PointIterator, CoordIterator> > MB;
-    MB mb(2, punkt.begin(), punkt.end());
-
-    float srodek[2];
-    float promien = sqrt(mb.squared_radius());
-    const double* center = mb.center();
-    for (int n = 0; n < 2; ++n, ++center) srodek[n] = *center;
-
-    prom << 300+10*srodek[0] << "\t" << 300+10*srodek[1] << "\t" << 10*promien << endl;
-
-    hist << czas_uw << endl;
-    hist.close();
-    prom.close();
-
-    }
+    {}
 
     return 0;
 }
