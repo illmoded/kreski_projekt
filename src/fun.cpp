@@ -1,5 +1,8 @@
 #include "fun.h"
 #include <math.h>
+#include "Miniball.h"
+#include <vector>
+#include <list>
 
 void wektor::oblicz_xyz_z_puktow(punkt p1, punkt p2)
 {
@@ -16,6 +19,29 @@ void wektor::oblicz_xyz_z_puktow(punkt p1, punkt p2)
 	z=p1.z-p2.z;
 
 	dlugosc=sqrt(x*x+y*y+z*z);
+}
+
+okrag oblicz_okrag(std::list<std::vector<double> > punkt)
+{	
+	okrag o;
+    typedef std::list<std::vector<double> >::const_iterator PointIterator; 
+    typedef std::vector<double>::const_iterator CoordIterator;
+    typedef Miniball::Miniball <Miniball::CoordAccessor<PointIterator, CoordIterator> > MB;
+    MB mb(2, punkt.begin(), punkt.end());
+
+    float srodek[2];
+    float promien = sqrt(mb.squared_radius());
+    const double* center = mb.center();
+    for (int n = 0; n < 2; ++n, ++center) srodek[n] = *center;
+
+    o.x=srodek[0];
+	o.y=srodek[1];
+	o.r=promien;
+
+    // al_clear_to_color(al_map_rgb(0,0,0));
+    // al_draw_circle(300+10*srodek[0], 300+10*srodek[1], 10*promien, al_map_rgb(255, 255, 0), 1);
+
+    return o;
 }
 
 wektor iloczynwektorowy(wektor w1, wektor w2)

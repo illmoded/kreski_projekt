@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include <list>
 
 #ifndef FUN_
 #define FUN_
@@ -12,6 +14,15 @@ struct punkt
 	double y;
 	double z;
 };
+
+struct okrag
+{
+	double x;
+	double y;
+	double r;
+};
+
+okrag oblicz_okrag(std::list<std::vector<double> > punkt);
 
 class wektor
 {

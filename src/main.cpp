@@ -167,19 +167,10 @@ int main(int argc, char const *argv[])
             punkt.push_back(p);
         }
 
-        // szukanie najmniejszego okręgu
-        typedef std::list<std::vector<double> >::const_iterator PointIterator; 
-        typedef std::vector<double>::const_iterator CoordIterator;
-        typedef Miniball::Miniball <Miniball::CoordAccessor<PointIterator, CoordIterator> > MB;
-        MB mb(2, punkt.begin(), punkt.end());
-
-        float srodek[2];
-        float promien = sqrt(mb.squared_radius());
-        const double* center = mb.center();
-        for (int n = 0; n < 2; ++n, ++center) srodek[n] = *center;
+        okrag o = oblicz_okrag(punkt);
 
         al_clear_to_color(al_map_rgb(0,0,0));
-        al_draw_circle(300+10*srodek[0], 300+10*srodek[1], 10*promien, al_map_rgb(255, 255, 0), 1);
+        al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, al_map_rgb(255, 255, 0), 1);
         for (int k = 0; k < i; k++){
             al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
         }
