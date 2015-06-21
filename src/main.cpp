@@ -22,8 +22,10 @@ void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
 
 int main(int argc, char const *argv[])
 {
-    int tryb;
-    tryb = 1;
+    int tryb;   // 0 - tekstowy
+    tryb = 0;   // 1 - graficzny
+
+    ///// GRAFICZNY /////
     if(tryb)
     {
         if(!al_init())
@@ -215,8 +217,110 @@ int main(int argc, char const *argv[])
         al_destroy_display(ekran);
     }
 
+    ///// TEKSTOWY /////
     if(!tryb)
-    {}
+    {
+        fstream plik("kreski.txt",fstream::out);
+        ofstream hist("czas_uw.txt",ios::app);
+        ofstream prom("promien.txt",ios::app);
+        // srand((unsigned)time(NULL));
+
+        rnd rnd;
+
+        int N = 200;
+        wektor wxN[N];
+
+        double a,b;
+        double dl=1.;
+        bool czy=false;
+        double drg=0, drg2=0, srdrg, srdrg2;
+        double pol=0, pol2=0, srpol, srpol2;
+        int t=0, stop=100;
+        int i=0, czas_uw=1;
+        
+        {   
+            wxN[i].poczatek.x=0;
+            wxN[i].poczatek.y=0;
+
+            wxN[i].koniec.x=wxN[i].poczatek.x+rnd.gauss(0,dl);
+            wxN[i].koniec.y=wxN[i].poczatek.y+rnd.gauss(0,dl);
+
+            i = 1;
+
+                while(i<N && t<=stop)
+                {
+                    czy=0;
+                    wxN[i].poczatek.x=wxN[i-1].koniec.x;
+                    wxN[i].poczatek.y=wxN[i-1].koniec.y;
+
+                    a=rnd.gauss(0,dl);
+                    b=rnd.gauss(0,dl);
+
+                    wxN[i].koniec.x=wxN[i].poczatek.x+a;
+                    wxN[i].koniec.y=wxN[i].poczatek.y+b;
+
+                    for (int j = 0; j < i-1; j++)
+                    {
+                        if (wektoryxxxx(wxN[i],wxN[j]))
+                            {
+                                czy=true;
+                                czas_uw++;
+                                break;
+                            }
+                    }
+
+                    if(!czy)
+                    {   
+                        wxN[i].oblicz_xyz_z_puktow(wxN[i].poczatek, wxN[i].koniec);
+                        // pol+=wxN[i].dlugosc;
+                        pol+=sqrt(wxN[i].koniec.x*wxN[i].koniec.x+wxN[i].koniec.y*wxN[i].koniec.y);
+                        srpol=pol/i;
+
+                        // pol2+=wxN[i].dlugosc*wxN[i].dlugosc;
+                        pol2+=wxN[i].koniec.x*wxN[i].koniec.x+wxN[i].koniec.y*wxN[i].koniec.y;
+                        srpol2=pol2/i;
+
+                        // drg+=sqrt((wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y));
+                        drg=wxN[i].dlugosc;
+                        srdrg=drg/i;
+
+                        // drg2+=(wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y);
+                        drg2+=wxN[i].dlugosc*wxN[i].dlugosc;
+                        srdrg2=drg2/i;
+                        
+                        hist << czas_uw << endl;
+                        czas_uw=1;
+                        i++;
+                    }
+
+                    /// reset
+                    czy = 0;
+                    t++;                    
+
+                    plik << t << "\t" << srpol << "\t" << srdrg << "\t" << srpol2 << "\t" << srdrg2 << endl;
+                }
+        }
+
+        std::list<std::vector<double> > punkt;
+        std::vector<double> q(2);
+        q[0] = wxN[0].poczatek.x;
+        q[1] = wxN[0].poczatek.y;
+        punkt.push_back(q);
+        for (int n = 0; n < i; n++){
+            std::vector<double> p(2);
+            p[0] = wxN[n].koniec.x;
+            p[1] = wxN[n].koniec.y;
+            punkt.push_back(p);
+        }
+
+        okrag o = oblicz_okrag(punkt);
+        prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
+
+        hist << czas_uw << endl;
+        hist.close();
+        prom.close();
+        plik.close();
+    }
 
     return 0;
 }

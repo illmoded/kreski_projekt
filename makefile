@@ -24,6 +24,7 @@ all: $(TARGET)
 clean:
 	-rm -rf $(BUILDDIR)
 	-rm $(TARGET)
+	-rm *.txt
 
 run: $(TARGET)
 	./$(TARGET)
