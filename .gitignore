@@ -28,7 +28,8 @@
 *.exe
 *.out
 *.app
-
+*.x
+*.txt
 
 ### Linux template
 *~
