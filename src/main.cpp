@@ -9,6 +9,27 @@
 
 using namespace std;
 
+ALLEGRO_COLOR red=al_map_rgb(255,0,0);
+ALLEGRO_COLOR green=al_map_rgb(0,255,0);
+ALLEGRO_COLOR blue=al_map_rgb(0,0,255);
+
+void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
+{
+    float x1 = w.poczatek.x;
+    float x2 = w.koniec.x;
+    float y1 = w.poczatek.y;
+    float y2 = w.koniec.y;
+
+    if (skala)
+    {
+        al_draw_line(300+10*x1,300+10*y1,300+10*x2,300+10*y2,kolor,szer);
+    }
+    else
+    {
+        al_draw_line(x1,y1,x2,y2,kolor,szer);
+    }
+}
+
 int main(int argc, char const *argv[])
 {
     int tryb;
@@ -113,7 +134,8 @@ int main(int argc, char const *argv[])
                     wxN[i].koniec.y=wxN[i].poczatek.y+b;
 
                     /// czerwone kreski
-                    al_draw_line(300+10*wxN[i].poczatek.x, 300+10*wxN[i].poczatek.y, 300+10*wxN[i].koniec.x, 300+10*wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
+                    kreska(wxN[i],red); //ładniej ;p
+                    // al_draw_line(300+10*wxN[i].poczatek.x, 300+10*wxN[i].poczatek.y, 300+10*wxN[i].koniec.x, 300+10*wxN[i].koniec.y, al_map_rgb(255,0,0), 2);  
 
                     for (int j = 0; j < i-1; j++)
                     {
@@ -128,24 +150,27 @@ int main(int argc, char const *argv[])
                     {   
                         pol+=wxN[i].dlugosc;
                         srpol=pol/i;
+
                         pol2+=wxN[i].dlugosc*wxN[i].dlugosc;
                         srpol2=pol2/i;
 
                         drg+=sqrt((wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y));
                         srdrg=drg/i;
+
                         drg2+=(wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y);
                         srdrg2=drg2/i;
                         
                         i++;
                     }
                     /// reset
-                    t++;
                     czy = 0;
+                    t++;                    
 
                     plik << t << "\t" << srpol << "\t" << srdrg << "\t" << srpol2 << "\t" << srdrg2 << endl;
 
-                    for (int k = 0; k < i; k++){///rysuje wszystkie pozostałe, żeby nic nie znikało
-                        al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
+                    for (int k = 0; k < i; k++){///rysuje wszystkie
+                        kreska(wxN[k],green);
+                        // al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
                     }
 
                     al_flip_display();
@@ -171,8 +196,10 @@ int main(int argc, char const *argv[])
 
         al_clear_to_color(al_map_rgb(0,0,0));
         al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, al_map_rgb(255, 255, 0), 1);
+
         for (int k = 0; k < i; k++){
-            al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
+            kreska(wxN[k],green);
+            // al_draw_line(300+10*wxN[k].poczatek.x, 300+10*wxN[k].poczatek.y, 300+10*wxN[k].koniec.x, 300+10*wxN[k].koniec.y, al_map_rgb(0,255,0), 1);
         }
         al_flip_display();
 
