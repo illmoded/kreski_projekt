@@ -144,16 +144,21 @@ int main(int argc, char const *argv[])
 
                     if(!czy)
                     {   
-                        pol+=wxN[i].dlugosc;    // też nie działa...
+                        wxN[i].oblicz_xyz_z_puktow(wxN[i].poczatek, wxN[i].koniec);
+                        // pol+=wxN[i].dlugosc;
+                        pol+=sqrt(wxN[i].koniec.x*wxN[i].koniec.x+wxN[i].koniec.y*wxN[i].koniec.y);
                         srpol=pol/i;
 
-                        pol2+=wxN[i].dlugosc*wxN[i].dlugosc;
+                        // pol2+=wxN[i].dlugosc*wxN[i].dlugosc;
+                        pol2+=wxN[i].koniec.x*wxN[i].koniec.x+wxN[i].koniec.y*wxN[i].koniec.y;
                         srpol2=pol2/i;
 
-                        drg+=sqrt((wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y));
+                        // drg+=sqrt((wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y));
+                        drg=wxN[i].dlugosc;
                         srdrg=drg/i;
 
-                        drg2+=(wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y);
+                        // drg2+=(wxN[i].x)*(wxN[i].x)+(wxN[i].y)*(wxN[i].y);
+                        drg2+=wxN[i].dlugosc*wxN[i].dlugosc;
                         srdrg2=drg2/i;
                         
                         hist << czas_uw << endl;
@@ -193,7 +198,7 @@ int main(int argc, char const *argv[])
         okrag o = oblicz_okrag(punkt);
 
         al_clear_to_color(al_map_rgb(0,0,0));
-        al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, al_map_rgb(255, 255, 0), 1);
+        al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, blue, 1);
         prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
 
         for (int k = 0; k < i; k++){

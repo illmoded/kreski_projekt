@@ -14,9 +14,9 @@ void wektor::oblicz_xyz_z_puktow(punkt p1, punkt p2)
 	koniec.y=p2.y;
 	koniec.z=p2.z;
 
-	x=p1.x-p2.x;
-	y=p1.y-p2.y;
-	z=p1.z-p2.z;
+	x=p2.x-p1.x;
+	y=p2.y-p1.y;
+	z=p2.z-p1.z;
 
 	dlugosc=sqrt(x*x+y*y+z*z);
 }
