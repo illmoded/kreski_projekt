@@ -201,8 +201,8 @@ int main(int argc, char const *argv[])
         okrag op = przyblizenieokregu(wxN, i);
 
         al_clear_to_color(al_map_rgb(0,0,0));
-        // al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, blue, 1);
-        al_draw_circle(300+10*op.x, 300+10*op.y, 10*op.r, blue, 1);
+        al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, blue, 1);
+        al_draw_circle(300+10*op.x, 300+10*op.y, 10*op.r, red, 1);
         cout << 300+10*op.x << "\t" << 300+10*op.y << "\t" << 10*op.r << endl;
         prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
 

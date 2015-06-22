@@ -86,51 +86,66 @@ bool wektoryxxxx(wektor w1, wektor w2)
 okrag przyblizenieokregu(wektor odcinki[], int N)
 {
 	okrag o;
-	//szukanie ekstremow
-	double xmax,xmin,ymax,ymin;
-	xmin = odcinki[0].poczatek.x;
-	xmax = odcinki[0].poczatek.x;
-	ymin = odcinki[0].poczatek.y;
-	ymax = odcinki[0].poczatek.y;
+
+	double xlista[N];
+	double ylista[N];
+
+	double xmax,ymax,xmin,ymin;
+	xmax=ymax=xmin=ymin=0.;
+
+	if (N%2)
+	{
+		N--;
+	}
 
 	for (int i = 0; i < N; i++)
 	{
-		if (odcinki[N].koniec.x<xmin)
+		xlista[i]=odcinki[i].koniec.x;
+		ylista[i]=odcinki[i].koniec.y;
+	}
+
+	for (int i = 0; i < N; i++)
+	{
+		if (xmax<xlista[i])
 		{
-			xmin=odcinki[N].koniec.x;
+			xmax=xlista[i];
 		}
-		if (odcinki[N].koniec.x>xmax)
+		if (ymax<ylista[i])
 		{
-			xmax=odcinki[N].koniec.x;
+			ymax=ylista[i];
 		}
-		if (odcinki[N].koniec.y<ymin)
+		if (xmin>xlista[i])
 		{
-			ymin=odcinki[N].koniec.y;
+			xmin=xlista[i];
 		}
-		if (odcinki[N].koniec.y>ymax)
+		if (ymin>ylista[i])
 		{
-			ymax=odcinki[N].koniec.y;
+			ymin=ylista[i];
 		}
 	}
-	o.x=(xmax+xmin)/2.;
-	o.y=(ymin+ymax)/2.;
-
-	
-	double X = abs(xmax-xmin)/2.;
-	double Y = abs(ymin-ymax)/2.;
 	double r1=0;
+	double X = xmax - xmin;
+	double Y = ymax - ymin;
 
-	if (abs(xmax-xmin)>abs(ymax-ymin))
+	if (X>Y)
 	{
-		r1 = Y;		
+		r1=Y/2.;
 	}
 	else
 	{
-		r1 = X;
+		r1=X/2.;
 	}
+	double r2=sqrt(X*X+Y*Y);
 
-	double r2 = sqrt(X*X+Y*Y);
-	o.r=(r1+r2)/2.;
+	o.r=(r1+r2)/2;
 
+	std::nth_element(xlista, xlista + N / 2, xlista + N);
+	double medianx = xlista[N/2];
+	std::nth_element(ylista, ylista + N / 2, ylista + N);
+	double mediany = ylista[N/2];
+
+	o.x = medianx;
+	o.y = mediany;
+	
 	return o;
 }
