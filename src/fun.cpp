@@ -88,25 +88,28 @@ okrag przyblizenieokregu(wektor odcinki[], int N)
 	okrag o;
 	//szukanie ekstremow
 	double xmax,xmin,ymax,ymin;
-	xmin=xmax=ymin=ymax=0;
+	xmin = odcinki[0].poczatek.x;
+	xmax = odcinki[0].poczatek.x;
+	ymin = odcinki[0].poczatek.y;
+	ymax = odcinki[0].poczatek.y;
 
 	for (int i = 0; i < N; i++)
 	{
-		if (odcinki[N].poczatek.x<xmin)
+		if (odcinki[N].koniec.x<xmin)
 		{
-			xmin=odcinki[N].poczatek.x;
+			xmin=odcinki[N].koniec.x;
 		}
-		if (odcinki[N].poczatek.x>xmax)
+		if (odcinki[N].koniec.x>xmax)
 		{
-			xmax=odcinki[N].poczatek.x;
+			xmax=odcinki[N].koniec.x;
 		}
-		if (odcinki[N].poczatek.y<ymin)
+		if (odcinki[N].koniec.y<ymin)
 		{
-			ymin=odcinki[N].poczatek.y;
+			ymin=odcinki[N].koniec.y;
 		}
-		if (odcinki[N].poczatek.y>ymax)
+		if (odcinki[N].koniec.y>ymax)
 		{
-			ymax=odcinki[N].poczatek.y;
+			ymax=odcinki[N].koniec.y;
 		}
 	}
 	o.x=(xmax+xmin)/2.;
