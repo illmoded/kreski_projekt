@@ -47,5 +47,6 @@ wektor iloczynwektorowy(wektor w1, wektor w2);
 double iloczynskalarny(wektor w1, wektor w2);
 bool wektoryxx(wektor w1, wektor w2);
 bool wektoryxxxx(wektor w1, wektor w2);
+okrag przyblizenieokregu(wektor odcinki[], int N);
 
 #endif

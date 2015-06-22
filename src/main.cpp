@@ -23,7 +23,7 @@ void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
 int main(int argc, char const *argv[])
 {
     int tryb;   // 0 - tekstowy
-    tryb = 0;   // 1 - graficzny
+    tryb = 1;   // 1 - graficzny
 
     ///// GRAFICZNY /////
     if(tryb)
@@ -198,9 +198,12 @@ int main(int argc, char const *argv[])
         }
 
         okrag o = oblicz_okrag(punkt);
+        okrag op = przyblizenieokregu(wxN,N);
 
         al_clear_to_color(al_map_rgb(0,0,0));
-        al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, blue, 1);
+        // al_draw_circle(300+10*o.x, 300+10*o.y, 10*o.r, blue, 1);
+        // al_draw_circle(300+10*op.x, 300+10*op.y, 10*op.r, blue, 1);
+        cout << op.x << "\t" << op.y << "\t" << op.r << endl;
         prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
 
         for (int k = 0; k < i; k++){

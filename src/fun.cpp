@@ -82,3 +82,52 @@ bool wektoryxxxx(wektor w1, wektor w2)
 {
 	return (wektoryxx(w1, w2) && wektoryxx(w2, w1));
 }
+
+okrag przyblizenieokregu(wektor odcinki[], int N)
+{
+	okrag o;
+	//szukanie ekstremow
+	double xmax,xmin,ymax,ymin;
+	xmin=xmax=ymin=ymax=0;
+
+	for (int i = 0; i < N; i++)
+	{
+		if (odcinki[N].poczatek.x<xmin)
+		{
+			xmin=odcinki[N].poczatek.x;
+		}
+		if (odcinki[N].poczatek.x>xmax)
+		{
+			xmax=odcinki[N].poczatek.x;
+		}
+		if (odcinki[N].poczatek.y<ymin)
+		{
+			ymin=odcinki[N].poczatek.y;
+		}
+		if (odcinki[N].poczatek.y>ymax)
+		{
+			ymax=odcinki[N].poczatek.y;
+		}
+	}
+	o.x=(xmax+xmin)/2.;
+	o.y=(ymin+ymax)/2.;
+
+	
+	double X = abs(xmax-xmin)/2.;
+	double Y = abs(ymin-ymax)/2.;
+	double r1=0;
+
+	if (abs(xmax-xmin)>abs(ymax-ymin))
+	{
+		r1 = Y;		
+	}
+	else
+	{
+		r1 = X;
+	}
+
+	double r2 = sqrt(X*X+Y*Y);
+	o.r=(r1+r2)/2.;
+
+	return o;
+}
