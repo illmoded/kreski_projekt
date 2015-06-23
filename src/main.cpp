@@ -226,6 +226,7 @@ int main(int argc, char const *argv[])
         fstream plik("kreski.txt",fstream::out);
         ofstream hist("czas_uw.txt",ios::app);
         ofstream prom("promien.txt",ios::app);
+        ofstream prom2("promien2.txt",ios::app);
         // srand((unsigned)time(NULL));
 
         rnd rnd;
@@ -318,7 +319,8 @@ int main(int argc, char const *argv[])
 
         okrag o = oblicz_okrag(punkt);
         okrag op = przyblizenieokregu(wxN, i);
-        prom << 300+10*op.x << "\t" << 300+10*op.y << "\t" << 10*op.r << endl;
+        prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
+        prom2 << 300+10*op.x << "\t" << 300+10*op.y << "\t" << 10*op.r << endl;
 
         hist << czas_uw << endl;
         hist.close();
