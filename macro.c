@@ -1,5 +1,5 @@
 void macro(){
-	int tryb = 1;
+	int tryb = 0;
 
 	if(tryb){
 		TH1F *hist = new TH1F("hist","czas uwiezienia",100,1,100);

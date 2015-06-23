@@ -23,7 +23,7 @@ void kreska(wektor w, ALLEGRO_COLOR kolor, float szer = 2, bool skala = true)
 int main(int argc, char const *argv[])
 {
     int tryb;   // 0 - tekstowy
-    tryb = 1;   // 1 - graficzny
+    tryb = 0;   // 1 - graficzny
 
     ///// GRAFICZNY /////
     if(tryb)
@@ -215,7 +215,7 @@ int main(int argc, char const *argv[])
         hist.close();
         prom.close();
         plik.close();
-        al_rest(3);
+        al_rest(1);
 
         al_destroy_display(ekran);
     }
@@ -317,7 +317,8 @@ int main(int argc, char const *argv[])
         }
 
         okrag o = oblicz_okrag(punkt);
-        prom << 300+10*o.x << "\t" << 300+10*o.y << "\t" << 10*o.r << endl;
+        okrag op = przyblizenieokregu(wxN, i);
+        prom << 300+10*op.x << "\t" << 300+10*op.y << "\t" << 10*op.r << endl;
 
         hist << czas_uw << endl;
         hist.close();

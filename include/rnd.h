@@ -3,6 +3,7 @@
 
 #include "math.h"
 #include "iostream"
+#include <sys/time.h>
 
 class rnd
 {
@@ -18,7 +19,10 @@ public:
 
 rnd::rnd()
 {
-	srand((unsigned)time(NULL));
+	struct timeval time;
+	gettimeofday(&time,NULL);
+	srand((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	// srand((unsigned)time(NULL));
 }
 
 double rnd::jedn(double pocz=0, double kon=1)
